@@ -1,0 +1,52 @@
+<div class='card'>
+  <div class='card-header'>
+    {{pageTitle}}
+  </div>
+  <div class='card-body'>
+    <div class='row'>
+      <div class='col-md-2'>Filter by:</div>
+      <div class='col-md-4'>
+        <input type='text' [(ngModel)]='listFilter' />
+      </div>
+    </div>
+    <div class='row'
+         *ngIf='listFilter'>
+      <div class='col-md-6'>
+        <p>Filtered by: <b>{{ listFilter }}</b></p>
+      </div>
+    </div>
+    <div class='table-responsive'>
+      <table class='table'>
+        <thead>
+          <tr>
+            <th>
+              <button class='btn btn-primary'
+                      (click)='toggleImage()'>
+                {{showImage ? 'Hide' : 'Show'}} Image
+              </button>
+            </th>
+            <th>User</th>
+            <th>ID</th>
+          </tr>
+        </thead>
+        <tbody>
+              <tr *ngFor='let user of filteredUser'>
+                  <td>
+                      <img *ngIf='showImage'
+                          [src]='user.avatar_url'
+                          [title]='user.login'
+                          [style.width.px]='imageWidth'
+                          [style.margin.px]='imageMargin'>
+                  </td>
+                  <td>{{ user.login }}</td>
+                  <td>{{ user.id }}</td>
+              </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div *ngIf='errorMessage'
+     class='alert alert-danger'>
+  Error: {{ errorMessage }}
+</div>
